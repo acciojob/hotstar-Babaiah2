@@ -73,12 +73,12 @@ public class SubscriptionService {
             updatedPrice = 1000+350*subscription.getNoOfScreensSubscribed() - subscription.getTotalAmountPaid();
             subscription.setSubscriptionType(SubscriptionType.ELITE);
         }
-        subscription.setTotalAmountPaid(subscription.getTotalAmountPaid()+updatedPrice);
+       // subscription.setTotalAmountPaid(subscription.getTotalAmountPaid()+updatedPrice);
 
         subscription.setUser(user);
 
         user.setSubscription(subscription);
-        userRepository.save(user);
+       // userRepository.save(user);
         return updatedPrice;
     }
 
