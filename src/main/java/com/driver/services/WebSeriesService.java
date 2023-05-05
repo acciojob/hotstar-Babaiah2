@@ -24,7 +24,30 @@ public class WebSeriesService {
         //use function written in Repository Layer for the same
         //Dont forget to save the production and webseries Repo
 
-        return null;
+        ProductionHouse productionHouse = productionHouseRepository.findById(webSeriesEntryDto.getProductionHouseId()).get();
+
+        for(WebSeries currwebSeries: productionHouse.getWebSeriesList()){
+            if(currwebSeries.getSeriesName() == webSeriesEntryDto.getSeriesName()){
+                throw new Exception("Series is already present");
+            }
+        }
+
+        WebSeries webSeries = new WebSeries();
+
+        webSeries.setSeriesName(webSeriesEntryDto.getSeriesName());
+        webSeries.setAgeLimit(webSeriesEntryDto.getAgeLimit());
+        webSeries.setRating(webSeriesEntryDto.getRating());
+        webSeries.setSubscriptionType(webSeriesEntryDto.getSubscriptionType());
+        webSeries.setProductionHouse(productionHouse);
+
+
+        double newRating = (webSeries.getRating()+ productionHouse.getRatings())/productionHouse.getWebSeriesList().size();
+        WebSeries savedWebSeries = webSeriesRepository.save(webSeries);
+        productionHouse.getWebSeriesList().add(savedWebSeries);
+
+        productionHouseRepository.save(productionHouse);
+
+        return savedWebSeries.getId();
     }
 
 }
