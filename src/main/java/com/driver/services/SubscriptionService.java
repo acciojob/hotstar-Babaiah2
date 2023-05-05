@@ -36,14 +36,23 @@ public class SubscriptionService {
 
          int subscriptionPrice = 0;
 
-         if(subscriptionEntryDto.getSubscriptionType() == SubscriptionType.BASIC)
-             subscriptionPrice+=500+200*subscriptionEntryDto.getNoOfScreensRequired();
-         else if(subscriptionEntryDto.getSubscriptionType() == SubscriptionType.PRO)
-             subscriptionPrice+=800+250*subscriptionEntryDto.getNoOfScreensRequired();
-         else if(subscriptionEntryDto.getSubscriptionType() == SubscriptionType.ELITE)
-             subscriptionPrice+=1000+350*subscriptionEntryDto.getNoOfScreensRequired();
+//         if(subscriptionEntryDto.getSubscriptionType() == SubscriptionType.BASIC)
+//             subscriptionPrice+=500+200*subscriptionEntryDto.getNoOfScreensRequired();
+//         else if(subscriptionEntryDto.getSubscriptionType() == SubscriptionType.PRO)
+//             subscriptionPrice+=800+250*subscriptionEntryDto.getNoOfScreensRequired();
+//         else if(subscriptionEntryDto.getSubscriptionType() == SubscriptionType.ELITE)
+//             subscriptionPrice+=1000+350*subscriptionEntryDto.getNoOfScreensRequired();
+
+        if(subscription.getSubscriptionType() == SubscriptionType.BASIC){
+            subscriptionPrice=500+200*subscription.getNoOfScreensSubscribed();
+        } else if (subscription.getSubscriptionType() == SubscriptionType.PRO) {
+            subscriptionPrice=800+250*subscription.getNoOfScreensSubscribed();
+        } else if (subscription.getSubscriptionType() == SubscriptionType.ELITE) {
+            subscriptionPrice=1000+350*subscription.getNoOfScreensSubscribed();
+        }
 
          subscription.setTotalAmountPaid(subscriptionPrice);
+        subscription.setUser(user);
 
          user.setSubscription(subscription);
 
@@ -75,9 +84,9 @@ public class SubscriptionService {
         }
        // subscription.setTotalAmountPaid(subscription.getTotalAmountPaid()+updatedPrice);
 
-        subscription.setUser(user);
+       // subscription.setUser(user);
 
-        user.setSubscription(subscription);
+      //  user.setSubscription(subscription);
        // userRepository.save(user);
         return updatedPrice;
     }
