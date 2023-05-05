@@ -42,8 +42,9 @@ public class WebSeriesService {
 
 
         double newRating = (webSeries.getRating()+ productionHouse.getRatings())/productionHouse.getWebSeriesList().size();
+        productionHouse.setRatings(newRating);
+        productionHouse.getWebSeriesList().add(webSeries);
         WebSeries savedWebSeries = webSeriesRepository.save(webSeries);
-        productionHouse.getWebSeriesList().add(savedWebSeries);
 
         productionHouseRepository.save(productionHouse);
 
